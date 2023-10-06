@@ -1,0 +1,38 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-Z1: Basic Javascript</title>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <h1>T1-Z1: Basic Javascript</h1>
+    <input type="button" value="concatArray([2, 5, 'hello', '&nbsp;', 'world'])" onclick="print( concatArray([2, 5, 'hello', ' ', 'world']) )"><br>
+    <input type="button" value="animalTalk('Dog', 'Bella', 3)" onclick="print( animalTalk('Dog', 'Bella', 3) )"><br>
+    <input type="button" value="loopAnimalTalk(12, 1, 'Cat', 'Marshmallow')" onclick="print( loopAnimalTalk(12, 1, 'Cat', 'Marshmallow') )"><br>
+    <div class="foreground1" id="output">...</div>
+    <script>
+        function print(x) {
+            document.getElementById('output').innerHTML = x
+        }
+        function concatArray(x) {
+            xConcat = ''
+            for(let i=0; i<x.length; i++) {
+                xConcat += x[i]
+            }
+            return xConcat
+        }
+        function animalTalk(animal, name, age) {
+            return `I'm a ${animal.toLowerCase()} named ${name} who is ${age} year${age == 1 ? '' : 's'} old`
+        }
+        function loopAnimalTalk(loops, start, animal, name) {
+            let arr = []
+            for(let i=0; i<loops; i++) {
+                arr[i] = animalTalk(animal, name, i+start) + (i == loops-1 ? '' : '<br>')
+            }
+            return concatArray(arr)
+        }
+    </script>
+{% endblock %}

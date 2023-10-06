@@ -1,0 +1,162 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>Gamedev 2023</title>
+    <script src="/lib/lz-string.min.js"></script>
+    <style>
+        .linkSection {
+            display: inline-block;
+        }
+        .click {
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+    <script>
+        //Toggles whether the sections are collapsed
+        function toggleHidden(storeId, element, element2) {
+            let json = JSON.parse(LZString.decompress(localStorage.getItem('iLinkCollapse')))
+            if(element.style.display == "block") {
+                element.style.display = "none"
+                element2.style.transform = ``
+                json[storeId] = true
+            }
+            else {  
+                element.style.display = "block"
+                element2.style.transform = `rotate(90deg)`
+                json[storeId] = false
+            }
+            localStorage.setItem('iLinkCollapse', LZString.compress(JSON.stringify(json)))
+        }
+        //On page load every link section is passed through this function
+        function setDefault(storeId, element, element2) {
+            let json = JSON.parse(LZString.decompress(localStorage.getItem('iLinkCollapse')))
+            switch(json[storeId]) {
+                case undefined:
+                    json[storeId] = false
+                    localStorage.setItem('iLinkCollapse', LZString.compress(JSON.stringify(json)))
+                    // No return here
+                case false:
+                    element.style.display = "block"
+                    element2.style.transform = `rotate(90deg)`
+                    return
+                case true:
+                    element.style.display = "none"
+                    element2.style.transform = ``
+                    return
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/settingsButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br><br>
+    {# <div><a style='font-size: 3rem;' href="final" class="link">Final</a></div>
+    <br>
+     #}
+    <div class="links">
+        <!--X Assignment-->
+        <div class="linkSection" id="linksX">
+            <span class="click">X Assignments</span>
+            <div class="foreground1">
+                <div><a href="x01" class="link">X-1: Card Draw</a></div>
+            </div>
+        </div><br>
+
+        <!--Other Assignment-->
+        <div class="linkSection" id="linksOther">
+            <span class="click">Other Assignments</span>
+            <div class="foreground1">
+                <div><a href="workNotScreenTime" class="link">Work Not Screen Time</a></div>
+            </div>
+        </div><br>
+
+        <!--Basic-->
+        <div class="linkSection" id="linksBasic">
+            <span class="click">Webpage Assignments</span>
+            <div class="foreground1">
+                <div><a href="t1a01" class="link">T1-A1: Basic web stuff</a></div>
+                <div><a href="t1a02" class="link">T1-A2: Tables</a></div>
+                <div><a href="t1a03" class="link">T1-A3: Forms</a></div>
+                <div><a href="t1a04" class="link">T1-A4: CSS</a></div>
+            </div>
+        </div><br>
+
+        <!--Z Assignment-->
+        <div class="linkSection" id="linksZ">
+            <span class="click">Z Assignments</span>
+            <div class="foreground1">
+                <div><a href="t1z01" class="link">T1-Z1: Basic Javascript</a></div>
+                <div><a href="t1z02" class="link">T1-Z2: Zombie</a></div>
+                <div><a href="t1z04" class="link">T1-Z4: Classes</a></div>
+            </div>
+        </div><br>
+
+        <!--Video Flac-->
+        <div class="linkSection" id="linksFlac">
+            <span class="click">Javascript Assignments</span>
+            <div class="foreground1">
+                <div><a href="t1a05" class="link">T1-A5: Trivia</a></div>
+                <div><a href="t1a06" class="link">T1-A6: Calc</a></div>
+                {# <div><a href="t1a07" class="link">T1-A7: Decisions</a></div>
+                <div><a href="t1a08" class="link">T1-A8: Loops</a></div>
+                <div><a href="t1a09" class="link">T1-A9: Functions</a></div>
+                <div><a href="t1a10" class="link">T1-A10: Events</a></div>
+                <div><a href="t2a01" class="link">T2-A1: Arrays</a></div>
+                <div><a href="t2a02" class="link">T2-A2: Objects</a></div>
+                <div><a href="t2a03" class="link">T2-A3: Classes</a></div>
+                <div><a href="t2a04" class="link">T2-A4: Extending Classes</a></div> #}
+            </div>
+        </div><br>
+
+        {# <!--Term 2-->
+        <div class="linkSection" id="linksTerm2">
+            <span class="click">Term 2</span>
+            <div class="foreground1">
+                <div><a href="t2a06" class="link">T2A06: Spy</a></div>
+                <div><a href="t2a07" class="link">T2A07: Move Background</a></div>
+                <div><a href="t2a08" class="link">T2A08: Canvas</a></div>
+                <div><a href="t2a09" class="link">T2A09: Local Storage</a></div>
+                <div><a href="t2a10" class="link">T2A10: Translate and Sound</a></div>
+                <div><a href="t2a11" class="link">T2A11: Game Template</a></div>
+                <div><a href="t2a12" class="link">T2A12: Pay</a></div>
+                <div><a href="t2a12b" class="link">T2A12B: Sort</a></div>
+                <div><a href="t2a14" class="link">T2A14: Project Description</a></div>
+            </div>
+        </div><br> #}
+
+        {# <!--Other-->
+        <div class="linkSection" id="linksOther">
+            <span class="click">Other</span>
+            <div class="foreground1">
+                <div><a href="t1a15" class="link">T1A15: Review Coding</a></div>
+                <div><a href="edgeImpulsePen" class="link">Edge Impulse</a></div>
+                <div><a href="edgeImpulsePenFomo" class="link">Edge Impulse: FOMO</a></div>
+            </div>
+        </div> #}
+    </div>
+    <script>
+        if(localStorage.getItem('iLinkCollapse') === null) {
+            localStorage.setItem('iLinkCollapse', LZString.compress(JSON.stringify({})))
+        }
+        let linkSections = document.querySelectorAll(".linkSection");
+        for(i=0; i<linkSections.length; i++) {
+            let span = linkSections[i].querySelector('span')
+            let div = linkSections[i].querySelector('div')
+            let id = linkSections[i].id
+            let svg = document.createElement('svg')
+            span.prepend(svg)
+            svg.outerHTML = `<svg height="22" width="22" style="position: relative; width: 22px;">
+                <polygon points="1,1 21,11 1,21" style="fill:white; stroke:black; stroke-width:2" />
+            </svg> `
+            svg = linkSections[i].querySelector('svg') // Required likely due to setting outerHTML
+            span.addEventListener('click', () => { // Listeners for clicking the dropdowns
+                toggleHidden(id, div, svg)
+            })
+            setDefault(id, div, svg); // Set to proper collapse-state
+        }
+    </script>
+{% endblock %}

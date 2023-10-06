@@ -1,0 +1,112 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-Z4: Classes</title>
+    <script>
+        class Color {
+            setStyle(elem, style) {
+                elem.style[style] = this.style
+            }
+        }
+        class RGB extends Color {
+            constructor(r, g, b) {
+                super()
+                this.r = r
+                this.g = g
+                this.b = b
+                this.style = `rgb(${r}, ${g}, ${b})`
+            }
+        }
+        class HSL extends Color {
+            constructor(h, s, l) {
+                super()
+                this.h = h
+                this.s = s
+                this.l = l
+                this.style = `hsl(${h}, ${s}%, ${l}%)`
+            }
+        }
+        class Animated {
+            constructor(callback) {
+                this.play = false
+                this.callback = callback
+                this.last = Date.now()
+                this.now = this.last
+                this.elapsed = 0
+            }
+            start() {
+                this.play = true
+                this.last = Date.now()
+                window.requestAnimationFrame(()=>{this.animate()})
+            }
+            stop() {
+                this.play = false
+            }
+            animate() {
+                this.now = Date.now()
+                this.elapsed = this.now - this.last
+                if(this.play) {
+                    this.callback()
+                    window.requestAnimationFrame(()=>{this.animate()})
+                }
+                this.last = this.now
+            }
+        }
+        class Rainbow extends Animated {
+            constructor(targetElem, style, speed, saturation, lightness) {
+                if(speed === undefined) { speed = 1 }
+                if(saturation === undefined) { saturation = 100 }
+                if(lightness === undefined) { lightness = 50 }
+                super(()=>{
+                    this.currentColor += this.elapsed / 10 * this.speed
+                    this.targetElem.style[style] = `hsl(${this.currentColor}, ${this.saturation}%, ${this.lightness}%)`
+                })
+                this.speed = speed
+                this.saturation = saturation
+                this.lightness = lightness
+                this.currentColor = 0
+                this.targetElem = targetElem
+                this.style = style
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <h1>T1-Z4: Classes</h1>
+
+    <input type="button" value="Class RGB" onClick="
+        let rgb = new RGB(100, 100, 250)
+        rgb.setStyle(document.getElementById('output'), 'color')
+    ">
+    <input type="button" value="Class HSL" onClick="
+        let hsl = new HSL(500, 100, 40)
+        hsl.setStyle(document.getElementById('output1'), 'color')
+    ">
+    <div id="output1">Output Box 1</div>
+
+    <br>
+
+    <input type="button" value="Start Rainbow" onClick="
+        rainbow.start()
+    ">
+    <input type="button" value="Stop Rainbow" onClick="
+        rainbow.stop()
+    "><br>
+    Speed: <input type="range" value="1" min=".5" max="5" step=".01" onInput="
+        rainbow.speed = parseFloat(this.value)
+    "><br>
+    Saturation: <input type="range" value="100" min="0" max="100" step=".01" onInput="
+        rainbow.saturation = parseFloat(this.value)
+    "><br>
+    Lightness: <input type="range" value="50" min="0" max="100" step=".01" onInput="
+        rainbow.lightness = parseFloat(this.value)
+    ">
+    <div id="output2" style="width: 200px; height: 200px;"></div>
+    <script>
+        let rainbow = new Rainbow(document.getElementById('output2'), 'backgroundColor')
+    </script>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-A5: Trivia</title>
+    <script>
+        function randNum(low, high) {
+            return Math.floor(Math.random() * (high-low+1)) + low
+        }
+        async function myCall() {
+            const myRawData = await fetch('https://opentdb.com/api.php?amount=1&type=multiple&encode=base64')
+            const myData = await myRawData.json()
+            document.getElementById('question').innerHTML = atob(myData.results[0].question)
+            let answers = []
+            for(let i=0; i<myData.results[0].incorrect_answers.length; i++) {
+                answers.push(atob(myData.results[0].incorrect_answers[i]))
+            }
+            let correctIndex = randNum(0, answers.length-1)
+            answers.splice(correctIndex, 0, atob(myData.results[0].correct_answer))
+            let result = document.getElementById('result')
+            result.hidden = true
+            let answersElem = document.getElementById('answers')
+            answersElem.innerHTML = ''
+            for(let i=0; i<answers.length; i++) {
+                let input = document.createElement('button')
+                input.innerHTML = answers[i]
+                answersElem.appendChild(input)
+                answersElem.appendChild(document.createElement('br'))
+                listeners[i] = [input, function(){
+                    result.hidden = false
+                    if(i == correctIndex) {
+                        result.style.color = '#9f9'
+                        result.innerHTML = 'Correct'
+                    }
+                    else {
+                        result.style.color = '#f99'
+                        result.innerHTML = `Incorrect. Answer was ${answers[correctIndex]}`
+                    }
+                    for(let i=0; i<listeners.length; i++) {
+                        listeners[i][0].removeEventListener('click', listeners[i][1])
+                    }
+                    listeners = []
+                }]
+                input.addEventListener('click', listeners[i][1])
+            }
+        }
+        let listeners = []
+    </script>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <h1>T1-A5: Trivia</h1>
+    <input type="button" value="New Trivia Question" onclick="myCall()">
+    <div id="question"></div>
+    <div id="answers"></div>
+    <div id="result"></div>
+{% endblock %}

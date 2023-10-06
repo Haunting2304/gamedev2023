@@ -1,0 +1,93 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-A3: Forms</title>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <a href="https://haunting2304.github.io/gamedev2022/t1a03/" class="link">← 2022 Version</a>
+    <h1>T1-A3: Forms</h1>
+    <form>
+        <h3>Checkbox:</h3>
+        Foo:<input type=checkbox><br>
+        Bar:<input type=checkbox><br>
+        Foobar:<input type=checkbox><br>
+        <h3>Radio Buttons:</h3>
+        <input type=radio id="rad00" name="rad0" value="0" checked>
+        <label for="rad00"> 99.9</label><br>
+        <input type=radio id="rad01" name="rad0" value="1">
+        <label for="rad01"> 102.1</label><br>
+        <input type=radio id="rad02" name="rad0" value="2">
+        <label for="rad02"> 107.5</label><br>
+        <input type=radio id="rad03" name="rad0" value="3">
+        <label for="rad03"> 88.5</label><br>
+        <br>
+        <input type=radio id="rad10" name="rad1" value="cat" checked>
+        <label for="rad10"> Cat</label><br>
+        <input type=radio id="rad11" name="rad1" value="dog">
+        <label for="rad11"> Dog</label><br>
+
+        <h3>Other:</h3>
+        Hidden:<br>
+        <input type=hidden><br><br>
+        File:<br>
+        <input type=file><br><br>
+        Reset:<br>
+        <input type=reset><br><br>
+        Submit:<br>
+        <input type=submit><br><br>
+        Week:<br>
+        <input type="week"><br><br>
+        Tel:<br>
+        <input type="tel"><br><br>
+        Password:<br>
+        <input type="password"><br><br>
+
+        Button:<br>
+        <input type=button value="Click" onclick="
+            document.getElementById('textArea').value += '\nCool!';
+        "><br><br>
+        Textarea:<br>
+        <textarea id="textArea" cols=60 rows=5>Wow, you can type here!</textarea><br><br>
+
+        Select Box:<br>
+        <select size=4>
+            <option value="one">One
+            <option value="two">Two
+            <option value="three">Three
+            <option value="four">Four
+            <option value="five">Five
+            <option value="six">Six
+        </select><br><br>
+
+        Range:<br>
+        0-100 as ints
+        <input type="range" min="0" max="100" step="1" oninput="document.getElementById('rangeOut1').innerHTML = this.value"><br>
+        <div id="rangeOut1">...</div>
+        0-100 as floats
+        <input type="range" min="0" max="100" step=".01" oninput="document.getElementById('rangeOut2').innerHTML = this.value"><br>
+        <div id="rangeOut2">...</div>
+        -Pi to Pi
+        <input type="range" min="-3.14159265358979" max="3.14159265358979" step="0.00000000000001" oninput="document.getElementById('rangeOut3').innerHTML = this.value"><br>
+        <div id="rangeOut3">...</div>
+        <br>
+
+        Date:<br>
+        <input type="date"><br><br>
+
+        Number:<br>
+        <input type="number"><br><br>
+
+        Time:<br>
+        <input type="time"><br><br>
+        
+        Email:<br>
+        <input type="email"><br><br>
+        
+        Color:<br>
+        <input type="color"><br><br>
+    </form>
+{% endblock %}

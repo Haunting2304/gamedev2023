@@ -1,0 +1,254 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-A4: CSS</title>
+    <style>
+        @keyframes rainbow {
+            0% {background-color: hsl(0, 100%, 50%)}
+            25% {background-color: hsl(90, 100%, 50%)}
+            50% {background-color: hsl(180, 100%, 50%)}
+            75% {background-color: hsl(270, 100%, 50%)}
+            100% {background-color: hsl(360, 100%, 50%)}
+            /*
+            0% {background-color: red;}
+            14% {background-color: orange;}
+            29% {background-color: yellow;}
+            43% {background-color: green;}
+            57% {background-color: blue;}
+            71% {background-color: indigo;}
+            86% {background-color: violet;}
+            100% {background-color: red;}
+            */
+        }
+        @keyframes animatedSpin {
+            0% {rotate: 0deg;}
+            100% {rotate: 360deg;}
+        }
+        @keyframes animatedMoving {
+            0% {left: 0px;}
+            25% {left: 200px;}
+            25% {top: 0px;}
+            50% {top: 100px;}
+            50% {left: 200px;}
+            75% {left: 0px;}
+            75% {top: 100px;}
+            100% {top: 0px;}
+        }
+        .def {
+            width: 100px;
+            height: 100px;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+        .colorWheel {
+            clip-path: circle(closest-side);
+            background: conic-gradient(
+                hsl(360, 100%, 50%),
+                hsl(315, 100%, 50%),
+                hsl(270, 100%, 50%),
+                hsl(225, 100%, 50%),
+                hsl(180, 100%, 50%),
+                hsl(135, 100%, 50%),
+                hsl(90, 100%, 50%),
+                hsl(45, 100%, 50%),
+                hsl(0, 100%, 50%)
+            );
+        }
+        #ex1 {
+            animation-name: rainbow;
+            background-color: red;
+        }
+        #ex2 {
+            animation-name: animatedSpin;
+        }
+        #ex3 {
+            position: relative;
+            left: 0%;
+            top: 0%;
+            animation-name: animatedMoving;
+            background-color: red;
+            animation-timing-function: ease-in-out;
+        }
+        #ex4 {
+            position: relative;
+            left: 0%;
+            top: 0%;
+            animation-name: rainbow, animatedMoving;
+        }
+        #ex51 {
+            padding: 5px;
+            background: conic-gradient(
+                hsl(360, 100%, 50%),
+                hsl(315, 100%, 50%),
+                hsl(270, 100%, 50%),
+                hsl(225, 100%, 50%),
+                hsl(180, 100%, 50%),
+                hsl(135, 100%, 50%),
+                hsl(90, 100%, 50%),
+                hsl(45, 100%, 50%),
+                hsl(0, 100%, 50%)
+            );
+        }
+        #ex52, #ex62 {
+            background-color: gray;
+        }
+        #ex61 {
+            padding: 5px;
+            background: conic-gradient(
+                hsl(360, 100%, 50%),
+                hsl(315, 100%, 50%),
+                hsl(270, 100%, 50%),
+                hsl(225, 100%, 50%),
+                hsl(180, 100%, 50%),
+                hsl(135, 100%, 50%),
+                hsl(90, 100%, 50%),
+                hsl(45, 100%, 50%),
+                hsl(0, 100%, 50%)
+            );
+        }
+        #ex7 {
+            animation-name: animatedSpin;
+            background-color: pink;
+            animation-play-state: paused;
+            animation-duration: 1s;
+        }
+        #ex7:hover {
+            animation-play-state: running;
+        }
+        #ex8 {
+            background-color: pink;
+            animation-play-state: paused;
+            rotate: 0deg;
+            transition: rotate 1s ease-in-out;
+        }
+        #ex8:hover {
+            rotate: 180deg;
+        }
+        .center {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <a href="https://haunting2304.github.io/gamedev2022/t1a04/" class="link">← 2022 Version</a>
+    <h1>T1-A4: CSS</h1>
+
+    <h3>Colour changing button</h3>
+    <b id="b1" style="color:#000; background-Color:#99f;">This is bold</b>
+    <input type=button value="Cycle Color" onclick="
+        let b1 = document.getElementById('b1')
+        console.log(getComputedStyle(b1).backgroundColor)
+        switch(getComputedStyle(b1).backgroundColor) {
+            case 'rgb(153, 153, 255)':
+                b1.style.backgroundColor = '#fcc'
+                break
+            case 'rgb(255, 204, 204)':
+                b1.style.backgroundColor = '#fff'
+                break
+            case 'rgb(255, 255, 255)':
+                b1.style.backgroundColor = '#99f'
+                break
+        }
+    "><br><br>
+
+
+    <h3>Moving textarea</h3>
+    <div style="height: 10vh">
+        <div style="height: 100%; float: left;">
+            <textarea id="textArea" style="position:relative; left:0; top:0; width:200px; height:50%; resize: none;"></textarea>
+        </div>
+        <div style="float: left;">
+            <input type=button value="Move Up" onclick="
+                document.getElementById('textArea').style.top = '0'
+            "><br>
+            <input type=button value="Move Down" onclick="
+                document.getElementById('textArea').style.top = '50%'
+            "><br>
+            <input type=button value="Move Random" onclick="
+                document.getElementById('textArea').style.top = `${Math.trunc(Math.random()*50)}%`
+            ">
+        </div>
+    </div>
+
+    <hr>
+
+    <h2 style="text-align: center;">My Examples</h2>
+    
+    <div class="flexCol">
+        <div class="flexRow">
+            <div class="center">
+                <h4>Rainbow div</h4>
+                <div class="def center" id="ex1"></div>
+            </div>
+            <div class="center">
+                <h4>Cool colour wheel</h4>
+                <div class="def center colorWheel" id="ex2"></div>
+            </div>
+        </div>
+        <div class="flexRow">
+            <div class="center" style="padding-bottom: 100px;">
+                <h4>Moving div with ease in out</h4>
+                <div class="def" id="ex3"></div>
+            </div>
+            <div class="center" style="padding-bottom: 100px;">
+                <h4>Moving rainbow div with linear transitions</h4>
+                <div class="def" id="ex4"></div>
+            </div>
+        </div>
+        <div class="flexRow">
+            <div class="center">
+                <h4>Rainbow Border Div</h4>
+                <div class="def center" id="ex51">
+                    <div class="def center" id="ex52"></div>
+                </div>
+            </div>
+            <div class="center">
+                <h4>Animated Rainbow Border</h4>
+                <div class="def center" id="ex61">
+                    <div class="def center" id="ex62"></div>
+                </div>
+            </div>
+        </div>
+        <div class="flexRow">
+            <div class="center">
+                <h4>Animated On Hover</h4>
+                <div class="def center" id="ex7"></div>
+            </div>
+            <div class="center">
+                <h4>Transition On Hover</h4>
+                <div class="def center" id="ex8"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let ex61 = document.getElementById('ex61')
+        let x = 360
+        let last = Date.now()
+        function update() {
+            let elapsed = Date.now() - last
+            x += ((elapsed/1000)*360)/2 // Half rotation per second
+            ex61.style.background = `conic-gradient(
+                hsl(${x}, 100%, 50%),
+                hsl(${x-45}, 100%, 50%),
+                hsl(${x-90}, 100%, 50%),
+                hsl(${x-135}, 100%, 50%),
+                hsl(${x-180}, 100%, 50%),
+                hsl(${x-225}, 100%, 50%),
+                hsl(${x-270}, 100%, 50%),
+                hsl(${x-315}, 100%, 50%),
+                hsl(${x-360}, 100%, 50%)
+            )`
+            last = Date.now()
+            requestAnimationFrame(update)
+        }
+        requestAnimationFrame(update)
+        update()
+    </script>
+{% endblock %}

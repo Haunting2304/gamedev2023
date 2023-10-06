@@ -1,0 +1,131 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-A2: Tables</title>
+    <script>
+        function moveCat(distance) {
+            let img = document.getElementById('myImage01')
+            let dist = parseInt(getComputedStyle(img).left) + distance
+
+            let div = document.getElementById('myDiv01')
+            img.style.left = `${dist}px`
+            dist /= 10
+            if(dist == 0) {
+                div.innerHTML = `He went back to the start` 
+            }
+            else if(dist >= 0) {
+                div.innerHTML = `He went right x${dist}` 
+            }
+            else {
+                div.innerHTML = `He went left x${-dist}` 
+            }
+            if(distance >= 0) {
+                img.style.transform = 'scale(1)'
+            }
+            else {
+                img.style.transform = 'scale(-1, 1)'
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <a href="https://haunting2304.github.io/gamedev2022/t1a02/" class="link">← 2022 Version</a>
+    <h1>T1-A2: Lists and Tables</h1>
+
+    <hr>
+    <h2>Lists</h2>
+    
+    List of stuff in the solar system in order<br>
+    <ol>
+        <li>Sun</li>
+        <li>Mercury</li>
+        <li>Venus</li>
+        <li>Earth</li>
+        <li>Mars</li>
+        <li>The Asteroid Belt</li>
+        <li>Jupiter</li>
+        <li>Saturn</li>
+        <li>Uranus</li>
+        <li>Neptune</li>
+        <li>Pluto</li>
+    </ol>
+
+    Unordered list of Countries<br>
+    <ul>
+        <li>France</li>
+        <li>Canada</li>
+        <li>Brazil</li>
+        <li>China</li>
+        <li>Germany</li>
+        <li>Vatican City</li>
+        <li>Russia</li>
+        <li>Finland</li>
+        <li>Iceland</li>
+        <li>Norway</li>
+        <li>Greece</li>
+        <li>Denmark</li>
+        <li>Sweden</li>
+    </ul>
+
+    List inside a list inside a list<br>
+    
+    <ul>
+        <li>List 1, Item 0</li>
+        <li>List 1, Item 1</li>
+            <ul>
+                <li>List 2. Item 0</li>
+                    <ul>
+                    <li>List 3, Item 0</li>
+                    <li>List 3, Item 1</li>
+                    </ul>
+                <li>List 2. Item 1</li>
+                <li>List 2. Item 2</li>
+            </ul>
+        <li>List 1, Item 3</li>
+        <li>List 1, Item 4</li>
+        <li>List 1, Item 5</li>
+    </ul>
+
+    <hr>
+    <h2>Tables</h2>
+    
+    <table>
+        <tr>
+            <td>Images</td>
+            <td>Links</td>
+        </tr>
+        <tr>
+            <td><img width=150 src="sillyCat.jpg"></td>
+            <td><a target="_blank" href="https://en.wikipedia.org/wiki/Cat">Cat</a></td>
+        </tr>
+        <tr>
+            <td><img width=150 src="blahaj.jpg.png"></td>
+            <td><a target="_blank" href="https://en.wikipedia.org/wiki/Shark">Shark</a></td>
+        </tr>
+        <tr>
+            <td><img width=150 src="sharkCat.png"></td>
+            <td><a target="_blank" href="https://www.amazon.ca/LKMYHY-Stuffed-Plushies-Christmas-Birthday/dp/B0BJLD2LGK">Shark Cat</a></td>
+        </tr>
+        <tr>
+            <td><img width=150 src="catshark.jpg"></td>
+            <td><a target="_blank" href="https://en.wikipedia.org/wiki/Catshark">Catshark</a></td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h2>Bonus</h2>
+
+    <input type=button value="Go left" onclick="moveCat(-10)">
+    <input type=button value="Go right" onclick="moveCat(10)">
+    <br>
+
+    <img id="myImage01" src="catShark.png" style="position:relative; left:0; top:0; width:50px; height:50px; "><br>
+
+    <div id="myDiv01">...</div>
+    <br><br>
+{% endblock %}

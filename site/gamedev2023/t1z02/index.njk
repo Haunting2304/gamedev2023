@@ -1,0 +1,99 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-Z2: Zombie</title> {#/hfsiodafioffhaofsdahoioihaiojoijfiojdfdaiojfdasiojjsiodiofjasdfjiodsfdfjjklfsdjfsdjlkas;jlkfjkldf;lkjajlflkjsajkfljadlfjadfklfdaskfdjlkfldsaf;dsjjl#}
+    <script src="/lib/lz-string.min.js"></script>
+    <script>
+        function updateSelect() {
+            let select = document.getElementById('nameSelect')
+            select.innerHTML = ""
+            for(let i in object) {
+                let option = document.createElement('option')
+                option.value = i
+                option.innerHTML = i
+                select.appendChild(option)
+            }
+            select.addEventListener('change', read)
+            read()
+        }
+        function read() {
+            let name = document.getElementById('nameSelect').value
+            let person = object[name]
+            let output = ''
+            output += `<b>Name:</b> ${name}<br>`
+            if(person.zombie !== undefined) { output += '<b>Is zombie:</b> ' + (person.zombie ? 'Yes':'No') + '<br>' }
+            if(person.age !== undefined) { output += `<b>Age:</b> ${person.age} year${Math.abs(person.age) !== 1 ? 's':''} old` + '<br>' }
+            document.getElementById('output').innerHTML = output
+        }
+        function addPerson() {
+            let obj = {}
+            obj.zombie = document.getElementById('zombie').checked
+            let age = document.getElementById('age');
+            let name = document.getElementById('name')
+            if(age.value != '') {
+                obj.age = age.value
+            }
+            if(name.value != '') {
+                object[name.value] = obj
+            }
+            else { error(); return }
+            error(false)
+            updateSelect()
+            save()
+        }
+        function error(state) {
+            if(state === undefined) { state = true }
+            document.getElementById('error').hidden = !state
+        }
+        function removePerson() {
+            delete(object[document.getElementById('nameSelect').value])
+            updateSelect()
+            save()
+        }
+        function save() {
+            localStorage.setItem('zombie', LZString.compress(JSON.stringify(object)))
+        }
+        window.addEventListener('unload', save)
+    </script>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <h1>T1-Z2: Zombie</h1>
+    <div style="float: right;" class="foreground1">
+        Remembers with local storage<br>
+        Name: <input type="text" id="name"><br>
+        Zombie: <input type="checkbox" id="zombie"><br>
+        Age: <input type="number" id="age"><br>
+        <input type="button" value="Add Person" onclick="addPerson()">
+        <div id="error" style="color: #c00;" hidden>!Error! Name is required</div>
+    </div>
+    <div class="foreground1">
+        <select id="nameSelect"></select><br>
+        <input type="button" value="Delete" onclick="removePerson()"><br>
+        {# <input type="button" value="Read Data" onclick="read()"> #} {# NVM, auto read onchange instead #}
+    </div>
+    <br>
+    <div id="output" class="foreground1">. . .</div>
+    <script>
+        let object = localStorage.getItem('zombie')
+        if(object === null) {
+            object = {
+                'John': {
+                    'zombie': false,
+                    'age': 38
+                },
+                'Jane': {
+                    'zombie': false,
+                    'age': 35
+                }
+            }
+        }
+        else {
+            object = JSON.parse(LZString.decompress(object))
+        }
+        updateSelect()
+    </script>
+{% endblock %}

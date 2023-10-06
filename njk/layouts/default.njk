@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include 'njk/components/defaultHead.njk' %}
+        {% include 'njk/components/favicon.njk' %}
+
+        {% block head %}
+        {% endblock %}
+
+        {% include 'njk/components/cssLinks.njk' %}
+
+        {% include 'njk/components/cookieStatus.njk' %}
+
+
+        {# <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> #}
+    </head>
+    <body>
+        {% block body %}
+        {% endblock %}
+
+        {% if not optInCookieExists %}
+            <script>
+                {
+                    let json = {% include 'json/cookieData.json' %}
+                    {{ cookieOptInScript }}
+                }
+            </script>
+        {% endif %}
+
+        {% block bodyEnd %}
+        {% endblock %}
+    </body>
+</html>

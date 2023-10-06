@@ -1,0 +1,171 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-A1: Basic Web Stuff</title>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <a href="https://haunting2304.github.io/gamedev2022/t1a01/" class="link">← 2022 Version</a>
+    <h1>T1-A1: Basic Web Stuff</h1>
+    
+
+    <hr>
+    <h2>Links</h2>
+    <a href="http://google.ca">Link to Google</a><br>
+    <a href="https://github.com/Haunting2304/gamedev2023">Link to my repository</a><br>
+    <a href="/">Link to my homepage</a><br>
+    <a href="/" target="_blank">Link to my homepage in a new tab</a><br>
+
+    
+    <hr>
+    <h2>Text</h2>
+    Plain Text <b>Bold</b> and <i>Italic</i> can you put them together<br>
+    <b>Bold</b><br>
+    <i>Italic</i><br>
+    <b><i>Bold Italic</i></b><br>
+    
+    <hr>
+    <h2>Images</h2>
+    <div class="flexRow">
+        <div class="flexCol">
+            <img width=200 src="catBlahaj.jpg"><br>
+            <img width=200 src="catEaten.gif"><br>
+            <img width=200 src="coffee.jpg"><br>
+        </div>
+        <div class="flexCol">
+            <img width=200 src="sharkCat.jpg"><br>
+            <img width=200 src="sharkHug.jpg"><br>
+            <img width=200 src="carRide.jpg"><br>
+        </div>
+    </div>
+    
+    <hr>
+    <h2>Youtube Embeds</h2>
+    <h3>Default Embed</h3>
+    <iframe width="384" height="216" src="https://www.youtube-nocookie.com/embed/rGNUHigqUBM?si=f75e9uER9rUAQjYz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <br>
+    <h3>White Progress Bar</h3>
+    <iframe width="384" height="216" src="https://www.youtube-nocookie.com/embed/oulfRfqTxJA?si=oa_kuwgQ27Vra6sQ&color=white" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <br>
+    <h3>Playlist Embed</h3>
+    <iframe width="384" height="216" src="https://www.youtube-nocookie.com/embed?listType=playlist&list=PLUahe1BHkKtVN4nPDmueo7huQgIhwUGOK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <hr>
+    <h2>Divs and spans</h2>
+    <div>This is in a div</div>
+    <span>This is in a span</span>
+    <div><span>This is a div in a span</div></span>
+    <hr>
+    
+    <h3>Write about the main areas of coding</h3>
+    
+    <input type=button value="Input/Output" onclick="
+        document.getElementById('myDiv01').innerHTML = 'The input was your click,<br>the output is this.'
+    ">
+    
+    <input type=button value="Variables" onclick="
+        document.getElementById('myDiv01').innerHTML = `
+        <pre>
+let var1 = 'wow ';
+let var2 = 'variables!';
+console.log(x + y);
+
+--> 'wow variables!'</pre>
+    `">
+    
+    <input type=button value="Loops" onclick='
+        document.getElementById(`myDiv01`).innerHTML = `
+        <pre>
+for(i=0;i<3;i++) {
+    console.log(\`This is iteration \${i}\`);
+}
+
+--> This is iteration 0
+--> This is iteration 1
+--> This is iteration 2</pre>
+    `'>
+    
+    <input type=button value="Decisions" onclick='
+        document.getElementById("myDiv01").innerHTML = `
+        <pre>
+if(Date.now() - pageOpenTime > 100000) {
+    console.log("You opened the page at least 100 seconds ago!");
+}
+else {
+    console.log("You opened the page less than 100 seconds ago.");
+}</pre>
+    `'>
+    
+    <input type=button value="Functions" onclick="
+        document.getElementById('myDiv01').innerHTML = `
+        <pre>
+function myFunction(a, b) {
+    console.log(a + b);
+}
+myFunction(5, 30);
+myFunction('5', 20);
+
+--> 35
+--> '520'</pre>
+    `">
+        
+    <input type=button value="Events" onclick='
+        document.getElementById(`myDiv01`).innerHTML = `
+        <pre>
+element.addEventListener("click", doThing);
+body.addEventListener("load", onLoad);</pre>
+    `'>
+        
+    <input type=button value="Arrays" onclick='
+        document.getElementById(`myDiv01`).innerHTML = `
+        <pre>
+let myArray = {"Cat", "Dog", "Shark"};
+console.log(myArray[0]);
+console.log(myArray[2]);
+console.log(myArray[3]);
+
+--> "Cat"
+--> "Shark"
+--> undefined</pre>
+    `'>
+        
+    <input type=button value="Objects" onclick='
+        document.getElementById(`myDiv01`).innerHTML = `
+        <pre>
+let myObject = {
+    name : "Giorgio",
+    object : "Shark Plushie",
+    favColour : "Purple"
+};
+console.log(myObject.object);
+console.log(myObject.favColour);
+console.log(myObject.lastName);
+
+--> "Shark Plushie"
+--> "Purple"
+--> undefined</pre>
+    `'>
+    
+    <input type=button value="Classes" onclick="
+        document.getElementById('myDiv01').innerHTML = `
+        <pre>
+class myAnimal {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+    speak(){    
+        console.log('Hello '+ this.name + '. You are ' + this.age + ' years old.')
+    }
+}
+let myDog = new myAnimal('Max', 5)
+myDog.speak()
+
+--> 'Hello Max. You are 5 years old.'</pre>
+    `">
+    <br>
+        
+    <div id="myDiv01">...</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'njk/layouts/default.njk' %}
+
+{% block head %}
+    <title>T1-A6: Calc</title>
+    <script type="module">
+        let current = ''
+        function add(input) {
+            current += input
+            display()
+        }
+        function evaluate() {
+            let result = Math.round(eval(current)*1000)/1000
+            document.getElementById('history').innerHTML = current + '=' + result + '<br>' + document.getElementById('history').innerHTML
+            current = result
+            display()
+        }
+        function reset() {
+            current = ''
+            display()
+        }
+        function back() {
+            current = current.substr(0, current.length-1)
+            display()
+        }
+        function display() {
+            document.getElementById('display').innerHTML = current
+        }
+        let inputs = document.querySelectorAll('.add')
+        for(let i=0; i<inputs.length; i++) {
+            inputs[i].addEventListener('click', function(){add(this.value)})
+        }
+        document.querySelector('.eval').addEventListener('click', function(){evaluate()})
+        document.querySelector('.clear').addEventListener('click', function(){reset()})
+        document.querySelector('.back').addEventListener('click', function(){back()})
+    </script>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        .calculator-grid {
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            grid-template-columns: repeat(4, 100px);
+            grid-template-rows: minmax(100px, auto) repeat(5, 100px);
+        }
+        .calculator-grid > button {
+            cursor: pointer;
+            font-size: 2rem;
+            border: 1px solid rgb(100, 40, 150);
+            outline: none;
+            background-color: rgba(170, 80, 240, .75);
+        }
+        .calculator-grid > button:hover {
+            background-color: rgba(170, 80, 240, .9);
+        }
+        #display {
+            font-size: 4rem;
+            border: 1px solid rgb(100, 40, 150);
+            outline: none;
+            background-color: rgba(170, 80, 240, .75);
+            text-align: right;
+            overflow: hidden;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    {% include 'njk/components/backButton.njk' %}
+    {% include 'njk/components/repoButton.njk' %}
+    <br>
+    <h1>T1-A6: Calc</h1>
+    <div class="calculator-grid">
+        <div id="display" style="grid-column: span 4;"></div>
+        <button class="clear" style="grid-column: span 2;">AC</button>
+        <button class="back">DEL</button>
+        <button value="/" class="add">÷</button>
+        <button value="7" class="add">7</button>
+        <button value="8" class="add">8</button>
+        <button value="9" class="add">9</button>
+        <button value="*" class="add">×</button>
+        <button value="4" class="add">4</button>
+        <button value="5" class="add">5</button>
+        <button value="6" class="add">6</button>
+        <button value="+" class="add">+</button>
+        <button value="1" class="add">1</button>
+        <button value="2" class="add">2</button>
+        <button value="3" class="add">3</button>
+        <button value="-" class="add">-</button>
+        <button value="0" class="add">0</button>
+        <button value="." class="add">.</button>
+        <button class="eval" style="grid-column: span 2;">=</button>
+    </div>
+    <div id="history"></div>
+{% endblock %}
